@@ -1,3 +1,16 @@
+server:
+  port: 8080
 spring:
   application:
-    name: ashoh-employee-servive
+    name: ashok-employee-servive
+eureka:
+  instance:
+    secure-port-enabled: false
+    non-secure-port-enabled: true
+    hostname: ${vcap.application.uris[0]:localhost}
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:localhost}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      healthcheck:
+        enabled: true

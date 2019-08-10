@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ashok.employee.rest.model.Employee;
@@ -27,10 +28,10 @@ public class AshokEmployeeServiceApplicationTests {
 
 	@Test
 	public void testGetEmployeeDetails() {
-	    Employee testEmployee = this.restTemplate.getForObject("http://localhost:" + port + "/emp-details/23",
+	    ResponseEntity<Employee> employeeResponseEntity = this.restTemplate.postForEntity("http://localhost:" + port + "/emp-details/23", null,
                 Employee.class);
-	    log.info("testGetEmployeeDetails rest respomnse: {}", testEmployee);
-	    assertThat(null != testEmployee);
+	    log.info("testGetEmployeeDetails rest respomnse: {}", employeeResponseEntity.getBody());
+	    assertThat(null != employeeResponseEntity.getBody());
 	}
 
 }
