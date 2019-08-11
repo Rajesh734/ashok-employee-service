@@ -51,4 +51,14 @@ public class BasicEmployeeService {
         listOfEmployee.add(employee);
         return listOfEmployee;
     }
-}
+        
+        @PostMapping("/emp-details/{id/id1}")
+        public Employee getEmployeeDetails_1(@PathVariable String id1) {
+            employee.setAge(10);
+            employee.setFirstName("Shivanya");
+            employee.setLastName("AshokKumar");
+            employee.setId(id1);
+            return employee;
+        }
+    }
+
