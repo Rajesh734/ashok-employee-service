@@ -9,29 +9,43 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ashok.employee.rest.fiegn.DBServiceClient;
 import com.ashok.employee.rest.model.Employee;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author rakkin493
  *
  */
+@Slf4j
 @RestController
 public class BasicEmployeeService {
     
     @Autowired
     private Employee employee;
     
-    @PostMapping("/emp-details/{id}")
+    @Autowired
+    private DBServiceClient dbServiceClient;
+    
+    @GetMapping("/emp-details/{id}")
     public Employee getEmployeeDetails(@PathVariable String id) {
         employee.setAge(20);
         employee.setFirstName("Aaryan");
         employee.setLastName("AshokKumar");
         employee.setId(id);
+        log.info("EMAIL {}", dbServiceClient.getEmail("Ashok@example.com"));
         return employee;
     }
+    
+    @GetMapping("/emp-details/user/{id}")
+    public Object getEmployeeUserDetails(@PathVariable long id) {
+    	log.debug("Trying to fetch User by ID from DB Service");
+        return dbServiceClient.getUserById(id);
+    }
+    
     
     @GetMapping("/fetchAllEmployees")
     public List<Employee> fetchAllEmplloyees() {
